@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm)">
+
+                    <input type="hidden" name="empID" placeholder="Enter the employee ID to update" [(ngModel)]="employeeService.employeeFormInput.id">
+
+                    <div>
+                        <input type="text" class="form-control" placeholder="Enter the employee full name" name="empName" [(ngModel)]="employeeService.employeeFormInput.fullname" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Enter the employee office" name="empOffice" [(ngModel)]="employeeService.employeeFormInput.office" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Enter the employee position" name="empPosition" [(ngModel)]="employeeService.employeeFormInput.position" />
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" placeholder="Enter the employee salary" name="empSalary" [(ngModel)]="employeeService.employeeFormInput.salary" />
+                    </div>
+                    <button class="btn btn-primary mt-2 btn-md" >Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <table class="table table-stripped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Full Name</th>
+                    <th>Office</th>
+                    <th>Position</th>                  
+                    <th>salary</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of employeeService.employees">
+                    <td>{{ employee.id }}</td>
+                    <td>{{ employee.fullname }}</td>
+                    <td>{{ employee.office }}</td>
+                    <td>{{ employee.position }}</td>
+                    <td>{{ employee.salary }}</td>
+                    <td>
+                        <button class="btn btn-secondary btn-sm" (click)="editEmployee(employee)">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button class="btn btn-secondary btn-sm" (click)="updateEmployee(employee.id,employeeForm)">
+                            <i class="material-icons">update</i>
+                        </button>
+                        <!--
+                            eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                            non-null assertion for employee id
+                        -->
+                        <button class="btn btn-danger btn-sm" (click)="deleteEmployee(employee.id!)">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
